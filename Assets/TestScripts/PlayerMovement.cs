@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float currentTime;
 
+    private bool interact = false;
 
 
 
@@ -91,12 +92,26 @@ public class PlayerMovement : MonoBehaviour
     {
         horz = Input.GetAxis("Horizontal");
         vert = Input.GetAxis("Vertical");
-
+        if (Input.GetKeyDown("space"))
+        {
+            interact = true;
+            Debug.Log("interact " + interact);
+        }
+        else
+        {
+            interact = false;
+        }
     }
+
+   
 
     // This is called for every physics update
     void FixedUpdate()
     {
+        
+
+        
+
         rb.velocity = new Vector2(horz, vert).normalized;
         float speedFactor = Time.deltaTime * mvAmt;
         rb.velocity = Vector2.Scale(rb.velocity, new Vector2(speedFactor, speedFactor));
@@ -237,6 +252,11 @@ public class PlayerMovement : MonoBehaviour
                 spriteRenderer.sprite = standingDown;
             }
         }
+    }
+
+    public bool getInteract()
+    {
+        return interact;
     }
 }
 
