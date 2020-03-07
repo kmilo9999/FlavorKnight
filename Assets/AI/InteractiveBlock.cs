@@ -58,12 +58,21 @@ public class InteractiveBlock : MonoBehaviour
         //other.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         //other.gameObject.GetComponent<Rigidbody2D>().AddForce(force);
         //Debug.Log("STAY " + other.gameObject.tag);
-        bool playerInteracting = other.gameObject.GetComponent<PlayerMovement>().getInteract();
-        if (playerInteracting)
+        if (other != null)
         {
-            myRigidBody.bodyType = RigidbodyType2D.Dynamic;
-            myRigidBody.AddForce(-Vector2.left * 100.30F);
+            PlayerMovement playerMovementComponent = other.gameObject.GetComponent<PlayerMovement>();
+            if (playerMovementComponent != null)
+            {
+                bool playerInteracting = other.gameObject.GetComponent<PlayerMovement>().getInteract();
+                if (playerInteracting)
+                {
+                    myRigidBody.bodyType = RigidbodyType2D.Dynamic;
+                    myRigidBody.AddForce(-Vector2.left * 100.30F);
+                }
+            }
+            
         }
+        
 
     }
 }
