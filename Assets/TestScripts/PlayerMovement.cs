@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float mvAmt = 5;
 
     // This is the index for the walking animation
-    private int walkingIndex;
+    private int animationIndex;
 
 
     // This is the sprite to use when standing still
@@ -44,7 +44,15 @@ public class PlayerMovement : MonoBehaviour
     // Keeping track of what direction is being used
     private bool isWalkingDown;
 
+    // Sprites for the respective attack directions
+    public List<Sprite> attackUp;
+    public List<Sprite> attackRight;
+    public List<Sprite> attackLeft;
+    public List<Sprite> attackDown;
 
+
+
+    public KeyCode attackKey = KeyCode.J;
 
 
 
@@ -68,6 +76,11 @@ public class PlayerMovement : MonoBehaviour
     private float horz;
     // This keeps track of vertical movement
     private float vert;
+    // This keeps track of whether or not the attack key is pressed
+    private bool attackingInput;
+    // This keeps track of whether or not we are in the middle of an attack animation
+    private bool attacking;
+
 
     // This is the rigid body that controls the physics of the player
     private Rigidbody2D rb;
@@ -77,8 +90,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        walkingIndex = 0;
-        walkingIndex = 0;
+        animationIndex = 0;
         currentTime = 0;
         isWalkingUp = false;
         // I want to initialize this as true, so the character starts facing downward
@@ -92,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
     {
         horz = Input.GetAxis("Horizontal");
         vert = Input.GetAxis("Vertical");
+
         if (Input.GetKeyDown("space"))
         {
             interact = true;
@@ -106,150 +119,287 @@ public class PlayerMovement : MonoBehaviour
    
 
     // This is called for every physics update
+
+    // This is called for a fixed time update (not by frame)
     void FixedUpdate()
     {
-        
-
-        
-
-        rb.velocity = new Vector2(horz, vert).normalized;
-        float speedFactor = Time.deltaTime * mvAmt;
-        rb.velocity = Vector2.Scale(rb.velocity, new Vector2(speedFactor, speedFactor));
-        if (vert < -0.0001)
+        if (attacking)
         {
-            if (isWalkingUp) {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingUp = false;
-            }
-            if (isWalkingRight) {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingRight = false;
-            }
-
-            if (isWalkingLeft) {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingLeft = false;
-            }
-
-            if (currentTime > animationSpeed)
-            {
-                walkingIndex++;
-                walkingIndex = walkingIndex % walkingDown.Count;
-                currentTime = currentTime - animationSpeed;
-            }
-            spriteRenderer.sprite = walkingDown[walkingIndex];
-            currentTime = currentTime + Time.deltaTime;
-            isWalkingDown = true;
-            
-        } else if (vert > 0.0001) {
-            if (isWalkingDown) {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingDown = false;
-            }
-            if (isWalkingRight)
-            {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingRight = false;
-            }
-
-            if (isWalkingLeft)
-            {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingLeft = false;
-            }
-
-            if (currentTime > animationSpeed)
-            {
-                walkingIndex++;
-                walkingIndex = walkingIndex % walkingUp.Count;
-                currentTime = currentTime - animationSpeed;
-            }
-            spriteRenderer.sprite = walkingUp[walkingIndex];
-            currentTime = currentTime + Time.deltaTime;
-            isWalkingUp = true;
-        }
-        else if (horz < -0.0001)
-        {
-            if (isWalkingDown)
-            {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingDown = false;
-            }
             if (isWalkingUp)
             {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingUp = false;
-            }
-            if (isWalkingRight)
-            {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingRight = false;
-            }
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    if (animationIndex < attackUp.Count)
+                    {
+                        spriteRenderer.sprite = attackUp[animationIndex];
+                        currentTime = currentTime - animationSpeed;
+                        currentTime = currentTime + Time.deltaTime;
 
-            if (currentTime > animationSpeed)
-            {
-                walkingIndex++;
-                walkingIndex = walkingIndex % walkingUp.Count;
-                currentTime = currentTime - animationSpeed;
+                    }
+                    else
+                    {
+                        attacking = false;
+                        currentTime = 0;
+                        animationIndex = 0;
+                    }
+                }
+                else
+                {
+                    currentTime = currentTime + Time.deltaTime;
+                }
+
             }
-            spriteRenderer.sprite = walkingLeft[walkingIndex];
-            currentTime = currentTime + Time.deltaTime;
-            isWalkingLeft = true;
+            else if (isWalkingRight)
+            {
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    if (animationIndex < attackRight.Count)
+                    {
+                        spriteRenderer.sprite = attackRight[animationIndex];
+                        currentTime = currentTime - animationSpeed;
+                        currentTime = currentTime + Time.deltaTime;
+                    }
+                    else
+                    {
+                        attacking = false;
+                        currentTime = 0;
+                        animationIndex = 0;
+                    }
+                }
+                else
+                {
+                    currentTime = currentTime + Time.deltaTime;
+                }
+
+            }
+            else if (isWalkingLeft)
+            {
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    if (animationIndex < attackLeft.Count)
+                    {
+                        spriteRenderer.sprite = attackLeft[animationIndex];
+                        currentTime = currentTime - animationSpeed;
+                        currentTime = currentTime + Time.deltaTime;
+                    }
+                    else
+                    {
+                        attacking = false;
+                        currentTime = 0;
+                        animationIndex = 0;
+                    }
+                }
+                else
+                {
+                    currentTime = currentTime + Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    if (animationIndex < attackDown.Count)
+                    {
+                        spriteRenderer.sprite = attackDown[animationIndex];
+                        currentTime = currentTime - animationSpeed;
+                        currentTime = currentTime + Time.deltaTime;
+                    }
+                    else
+                    {
+                        attacking = false;
+                        currentTime = 0;
+                        animationIndex = 0;
+                    }
+                }
+                else
+                {
+                    currentTime = currentTime + Time.deltaTime;
+                }
+            }
         }
-        else if (horz > 0.0001)
+        else if (attackingInput)
         {
+            rb.velocity = new Vector2(0, 0);
+            currentTime = 0;
+            animationIndex = 0;
+            attacking = true;
             if (isWalkingDown)
             {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingDown = false;
-            }
-            if (isWalkingUp)
-            {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingUp = false;
-            }
-            if (isWalkingLeft)
-            {
-                currentTime = 0;
-                walkingIndex = 0;
-                isWalkingLeft = false;
-            }
+                spriteRenderer.sprite = walkingDown[animationIndex];
 
-            if (currentTime > animationSpeed)
-            {
-                walkingIndex++;
-                walkingIndex = walkingIndex % walkingUp.Count;
-                currentTime = currentTime - animationSpeed;
             }
-            spriteRenderer.sprite = walkingRight[walkingIndex];
-            currentTime = currentTime + Time.deltaTime;
-            isWalkingRight = true;
+            else if (isWalkingLeft)
+            {
+                spriteRenderer.sprite = walkingLeft[animationIndex];
+            }
+            else if (isWalkingRight)
+            {
+                spriteRenderer.sprite = walkingRight[animationIndex];
+            }
+            else
+            {
+                spriteRenderer.sprite = walkingUp[animationIndex];
+                isWalkingUp = true;
+            }
         }
-
         else
         {
-            currentTime = 0;
-            walkingIndex = 0;
-            walkingIndex = 0;
-            if (isWalkingUp) {
-                spriteRenderer.sprite = standingUp;
-            } else if (isWalkingLeft){
-                spriteRenderer.sprite = standingLeft;
-            } else if (isWalkingRight) {
-                spriteRenderer.sprite = standingRight;
-            } else {
-                spriteRenderer.sprite = standingDown;
+            rb.velocity = new Vector2(horz, vert).normalized;
+            float speedFactor = Time.deltaTime * mvAmt;
+            rb.velocity = Vector2.Scale(rb.velocity, new Vector2(speedFactor, speedFactor));
+            if (vert < -0.0001)
+            {
+                if (isWalkingUp)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingUp = false;
+                }
+                if (isWalkingRight)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingRight = false;
+                }
+
+                if (isWalkingLeft)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingLeft = false;
+                }
+
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    animationIndex = animationIndex % walkingDown.Count;
+                    currentTime = currentTime - animationSpeed;
+                }
+                spriteRenderer.sprite = walkingDown[animationIndex];
+                currentTime = currentTime + Time.deltaTime;
+                isWalkingDown = true;
+
+            }
+            else if (vert > 0.0001)
+            {
+                if (isWalkingDown)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingDown = false;
+                }
+                if (isWalkingRight)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingRight = false;
+                }
+
+                if (isWalkingLeft)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingLeft = false;
+                }
+
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    animationIndex = animationIndex % walkingUp.Count;
+                    currentTime = currentTime - animationSpeed;
+                }
+                spriteRenderer.sprite = walkingUp[animationIndex];
+                currentTime = currentTime + Time.deltaTime;
+                isWalkingUp = true;
+            }
+            else if (horz < -0.0001)
+            {
+                if (isWalkingDown)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingDown = false;
+                }
+                if (isWalkingUp)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingUp = false;
+                }
+                if (isWalkingRight)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingRight = false;
+                }
+
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    animationIndex = animationIndex % walkingUp.Count;
+                    currentTime = currentTime - animationSpeed;
+                }
+                spriteRenderer.sprite = walkingLeft[animationIndex];
+                currentTime = currentTime + Time.deltaTime;
+                isWalkingLeft = true;
+            }
+            else if (horz > 0.0001)
+            {
+                if (isWalkingDown)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingDown = false;
+                }
+                if (isWalkingUp)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingUp = false;
+                }
+                if (isWalkingLeft)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    isWalkingLeft = false;
+                }
+
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    animationIndex = animationIndex % walkingUp.Count;
+                    currentTime = currentTime - animationSpeed;
+                }
+                spriteRenderer.sprite = walkingRight[animationIndex];
+                currentTime = currentTime + Time.deltaTime;
+                isWalkingRight = true;
+            }
+
+            else
+            {
+                currentTime = 0;
+                animationIndex = 0;
+                animationIndex = 0;
+                if (isWalkingUp)
+                {
+                    spriteRenderer.sprite = standingUp;
+                }
+                else if (isWalkingLeft)
+                {
+                    spriteRenderer.sprite = standingLeft;
+                }
+                else if (isWalkingRight)
+                {
+                    spriteRenderer.sprite = standingRight;
+                }
+                else
+                {
+                    spriteRenderer.sprite = standingDown;
+                }
             }
         }
     }
