@@ -209,6 +209,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (attackingInput)
         {
+            rb.velocity = new Vector2(0, 0);
             currentTime = 0;
             animationIndex = 0;
             attacking = true;
