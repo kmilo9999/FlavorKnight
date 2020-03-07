@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 
-    enum Direction {UP, DOWN, LEFT, RIGHT};
+    enum Direction { UP, DOWN, LEFT, RIGHT };
 
     // This controls how quickly the player moves
     public float mvAmt = 5;
@@ -19,26 +19,26 @@ public class PlayerMovement : MonoBehaviour
     public Sprite standingUp;
     // This is a list of sprites to use when moving
     public List<Sprite> walkingUp;
-   
+
 
 
     // This is the sprite to use when standing still
     public Sprite standingRight;
     // This is a list of sprites to use when moving
     public List<Sprite> walkingRight;
-    
+
 
     // This is the sprite to use when standing still
     public Sprite standingLeft;
     // This is a list of sprites to use when moving
     public List<Sprite> walkingLeft;
-    
+
 
     // This is the sprite to use when standing still
     public Sprite standingDown;
     // This is a list of sprites to use when moving
     public List<Sprite> walkingDown;
-    
+
 
     // Sprites for the respective attack directions
     public List<Sprite> attackUp;
@@ -46,7 +46,13 @@ public class PlayerMovement : MonoBehaviour
     public List<Sprite> attackLeft;
     public List<Sprite> attackDown;
 
+    // Sprites for walking while carrying something
+    public List<Sprite> carryUp;
+    public List<Sprite> carryRight;
+    public List<Sprite> carryLeft;
+    public List<Sprite> carryDown;
 
+    private bool carrying;
 
     public KeyCode attackKey = KeyCode.J;
 
@@ -81,10 +87,20 @@ public class PlayerMovement : MonoBehaviour
     // This is the rigid body that controls the physics of the player
     private Rigidbody2D rb;
 
-    Direction GetDirection() {
+    Direction GetDirection()
+    {
         return direction;
     }
 
+    void startCarrying()
+    {
+        carrying = true;
+    }
+
+    void stopCarrying()
+    {
+        carrying = false;
+    }
 
 
     // Start is called before the first frame update
@@ -94,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         animationIndex = 0;
         currentTime = 0;
         direction = Direction.DOWN;
-        
+        carrying = false;
     }
 
     // Update is called once per frame
@@ -102,7 +118,12 @@ public class PlayerMovement : MonoBehaviour
     {
         horz = Input.GetAxis("Horizontal");
         vert = Input.GetAxis("Vertical");
+        if (Input.GetKeyDown(KeyCode.J))
+            attackingInput = true;
         attackingInput = Input.GetKeyDown(KeyCode.J);
+        // Temporarily making it so that you need to hold a button down
+        if (Input.GetKeyDown(KeyCode.K))
+            carrying = !carrying;
     }
 
     // This is called for a fixed time update (not by frame)
@@ -206,6 +227,116 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+        else if (carrying)
+        {
+            rb.velocity = new Vector2(horz, vert).normalized;
+            float speedFactor = Time.deltaTime * mvAmt;
+            rb.velocity = Vector2.Scale(rb.velocity, new Vector2(speedFactor, speedFactor));
+            if (vert < -0.0001)
+            {
+                if (direction != Direction.DOWN)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    direction = Direction.DOWN;
+                }
+
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    animationIndex = animationIndex % carryDown.Count;
+                    currentTime = currentTime - animationSpeed;
+                }
+                spriteRenderer.sprite = carryDown[animationIndex];
+                currentTime = currentTime + Time.deltaTime;
+
+
+            }
+            else if (vert > 0.0001)
+            {
+                if (direction != Direction.UP)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    direction = Direction.UP;
+                }
+
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    animationIndex = animationIndex % carryUp.Count;
+                    currentTime = currentTime - animationSpeed;
+                }
+                spriteRenderer.sprite = carryUp[animationIndex];
+                currentTime = currentTime + Time.deltaTime;
+                direction = Direction.UP;
+            }
+            else if (horz < -0.0001)
+            {
+                if (direction != Direction.LEFT)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    direction = Direction.LEFT;
+                }
+
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    animationIndex = animationIndex % carryLeft.Count;
+                    currentTime = currentTime - animationSpeed;
+                }
+                spriteRenderer.sprite = carryLeft[animationIndex];
+                currentTime = currentTime + Time.deltaTime;
+                direction = Direction.LEFT;
+            }
+            else if (horz > 0.0001)
+            {
+                if (direction != Direction.RIGHT)
+                {
+                    currentTime = 0;
+                    animationIndex = 0;
+                    direction = Direction.RIGHT;
+                }
+
+                if (currentTime > animationSpeed)
+                {
+                    animationIndex++;
+                    animationIndex = animationIndex % carryRight.Count;
+                    currentTime = currentTime - animationSpeed;
+                }
+                spriteRenderer.sprite = carryRight[animationIndex];
+                currentTime = currentTime + Time.deltaTime;
+                direction = Direction.RIGHT;
+            }
+
+            else
+            {
+                currentTime = 0;
+                animationIndex = 0;
+                animationIndex = 0;
+                if (direction == Direction.UP)
+                {
+                    if (carryUp.Count > 0)
+                    spriteRenderer.sprite = carryUp[carryUp.Count - 1];
+                }
+                else if (direction == Direction.LEFT)
+                {
+                    if (carryLeft.Count > 0)
+                    spriteRenderer.sprite = carryLeft[carryLeft.Count - 1];
+                }
+                else if (direction == Direction.RIGHT)
+                {
+                    if (carryRight.Count > 0)
+                    spriteRenderer.sprite = carryRight[carryRight.Count - 1];
+                }
+                else
+                {
+                    if (carryDown.Count > 0)
+                    spriteRenderer.sprite = carryDown[carryDown.Count - 1];
+                }
+            }
+        }
         else if (attackingInput)
         {
             rb.velocity = new Vector2(0, 0);
@@ -230,6 +361,7 @@ public class PlayerMovement : MonoBehaviour
                 spriteRenderer.sprite = walkingUp[animationIndex];
                 direction = Direction.UP;
             }
+            attackingInput = false;
         }
         else
         {
@@ -253,7 +385,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 spriteRenderer.sprite = walkingDown[animationIndex];
                 currentTime = currentTime + Time.deltaTime;
-                
+
 
             }
             else if (vert > 0.0001)
@@ -287,7 +419,7 @@ public class PlayerMovement : MonoBehaviour
                 if (currentTime > animationSpeed)
                 {
                     animationIndex++;
-                    animationIndex = animationIndex % walkingUp.Count;
+                    animationIndex = animationIndex % walkingLeft.Count;
                     currentTime = currentTime - animationSpeed;
                 }
                 spriteRenderer.sprite = walkingLeft[animationIndex];
@@ -296,7 +428,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (horz > 0.0001)
             {
-                if(direction != Direction.RIGHT)
+                if (direction != Direction.RIGHT)
                 {
                     currentTime = 0;
                     animationIndex = 0;
@@ -306,7 +438,7 @@ public class PlayerMovement : MonoBehaviour
                 if (currentTime > animationSpeed)
                 {
                     animationIndex++;
-                    animationIndex = animationIndex % walkingUp.Count;
+                    animationIndex = animationIndex % walkingRight.Count;
                     currentTime = currentTime - animationSpeed;
                 }
                 spriteRenderer.sprite = walkingRight[animationIndex];
