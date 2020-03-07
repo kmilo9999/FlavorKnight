@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float currentTime;
 
+    private bool interact = false;
 
 
 
@@ -87,8 +88,12 @@ public class PlayerMovement : MonoBehaviour
     // This is the rigid body that controls the physics of the player
     private Rigidbody2D rb;
 
-    Direction GetDirection()
-    {
+
+    public LayerMask boxMask;
+    public float rayDistance;
+
+    GameObject obj;
+    Direction GetDirection() {
         return direction;
     }
 
@@ -120,11 +125,81 @@ public class PlayerMovement : MonoBehaviour
         vert = Input.GetAxis("Vertical");
         if (Input.GetKeyDown(KeyCode.J))
             attackingInput = true;
-        attackingInput = Input.GetKeyDown(KeyCode.J);
         // Temporarily making it so that you need to hold a button down
         if (Input.GetKeyDown(KeyCode.K))
             carrying = !carrying;
+
+        /*if (Input.GetKeyDown("space"))
+        {
+            interact = true;
+            Debug.Log("interact " + interact);
+        }
+        else
+        {
+            interact = false;
+        }*/
+
+        Physics2D.queriesStartInColliders = false;
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x,
+            rayDistance, boxMask);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left * transform.localScale.x,
+            rayDistance, boxMask);
+        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up * transform.localScale.x,
+            rayDistance, boxMask);
+        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down * transform.localScale.x,
+            rayDistance, boxMask);
+
+        RaycastHit2D resultRay;
+
+        if (hitRight.collider != null)
+        {
+            //resultRay = hitRight;
+            resolveRayHit(hitRight);
+        }
+        else if (hitLeft.collider != null)
+        {
+            //resultRay = hitLeft;
+            resolveRayHit(hitLeft);
+        }
+        else if (hitUp.collider != null)
+        {
+            resolveRayHit(hitUp);
+        }
+        else if (hitDown.collider != null)
+        {
+            resolveRayHit(hitDown);
+        }
+        
     }
+
+    private void resolveRayHit(RaycastHit2D rayHit)
+    {
+        if (rayHit.collider != null && rayHit.collider.gameObject.tag == "grabable" && Input.GetKeyDown("space"))
+        {
+            obj = rayHit.collider.gameObject;
+            obj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            obj.GetComponent<FixedJoint2D>().enabled = true;
+            obj.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+        }
+        else if (Input.GetKeyUp("space"))
+        {
+            if (obj != null && obj.GetComponent<FixedJoint2D>() != null)
+            {
+                obj.GetComponent<FixedJoint2D>().enabled = false;
+                Debug.Log("SUPER HERE");
+                obj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            }
+
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * rayDistance);
+    }
+
+    // This is called for every physics update
 
     // This is called for a fixed time update (not by frame)
     void FixedUpdate()
@@ -469,6 +544,11 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool getInteract()
+    {
+        return interact;
     }
 }
 
