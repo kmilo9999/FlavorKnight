@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 
-
+    enum Direction {UP, DOWN, LEFT, RIGHT};
 
     // This controls how quickly the player moves
     public float mvAmt = 5;
@@ -19,30 +19,26 @@ public class PlayerMovement : MonoBehaviour
     public Sprite standingUp;
     // This is a list of sprites to use when moving
     public List<Sprite> walkingUp;
-    // Keeping track of what direction is being used
-    private bool isWalkingUp;
+   
 
 
     // This is the sprite to use when standing still
     public Sprite standingRight;
     // This is a list of sprites to use when moving
     public List<Sprite> walkingRight;
-    // Keeping track of what direction is being used
-    private bool isWalkingRight;
+    
 
     // This is the sprite to use when standing still
     public Sprite standingLeft;
     // This is a list of sprites to use when moving
     public List<Sprite> walkingLeft;
-    // Keeping track of what direction is being used
-    private bool isWalkingLeft;
+    
 
     // This is the sprite to use when standing still
     public Sprite standingDown;
     // This is a list of sprites to use when moving
     public List<Sprite> walkingDown;
-    // Keeping track of what direction is being used
-    private bool isWalkingDown;
+    
 
     // Sprites for the respective attack directions
     public List<Sprite> attackUp;
@@ -63,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
     public float animationSpeed;
 
 
+    private Direction direction;
 
 
 
@@ -85,6 +82,11 @@ public class PlayerMovement : MonoBehaviour
     // This is the rigid body that controls the physics of the player
     private Rigidbody2D rb;
 
+    Direction GetDirection() {
+        return direction;
+    }
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -92,11 +94,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animationIndex = 0;
         currentTime = 0;
-        isWalkingUp = false;
-        // I want to initialize this as true, so the character starts facing downward
-        isWalkingDown = true;
-        isWalkingRight = false;
-        isWalkingLeft = false;
+        direction = Direction.DOWN;
+        
     }
 
     // Update is called once per frame
@@ -125,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (attacking)
         {
-            if (isWalkingUp)
+            if (direction == Direction.UP)
             {
                 if (currentTime > animationSpeed)
                 {
@@ -150,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
                 }
 
             }
-            else if (isWalkingRight)
+            else if (direction == Direction.RIGHT)
             {
                 if (currentTime > animationSpeed)
                 {
@@ -174,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
                 }
 
             }
-            else if (isWalkingLeft)
+            else if (direction == Direction.LEFT)
             {
                 if (currentTime > animationSpeed)
                 {
@@ -227,23 +226,23 @@ public class PlayerMovement : MonoBehaviour
             currentTime = 0;
             animationIndex = 0;
             attacking = true;
-            if (isWalkingDown)
+            if (direction == Direction.DOWN)
             {
                 spriteRenderer.sprite = walkingDown[animationIndex];
 
             }
-            else if (isWalkingLeft)
+            else if (direction == Direction.LEFT)
             {
                 spriteRenderer.sprite = walkingLeft[animationIndex];
             }
-            else if (isWalkingRight)
+            else if (direction == Direction.RIGHT)
             {
                 spriteRenderer.sprite = walkingRight[animationIndex];
             }
             else
             {
                 spriteRenderer.sprite = walkingUp[animationIndex];
-                isWalkingUp = true;
+                direction = Direction.UP;
             }
         }
         else
@@ -253,24 +252,11 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector2.Scale(rb.velocity, new Vector2(speedFactor, speedFactor));
             if (vert < -0.0001)
             {
-                if (isWalkingUp)
+                if (direction != Direction.DOWN)
                 {
                     currentTime = 0;
                     animationIndex = 0;
-                    isWalkingUp = false;
-                }
-                if (isWalkingRight)
-                {
-                    currentTime = 0;
-                    animationIndex = 0;
-                    isWalkingRight = false;
-                }
-
-                if (isWalkingLeft)
-                {
-                    currentTime = 0;
-                    animationIndex = 0;
-                    isWalkingLeft = false;
+                    direction = Direction.DOWN;
                 }
 
                 if (currentTime > animationSpeed)
@@ -281,29 +267,16 @@ public class PlayerMovement : MonoBehaviour
                 }
                 spriteRenderer.sprite = walkingDown[animationIndex];
                 currentTime = currentTime + Time.deltaTime;
-                isWalkingDown = true;
+                
 
             }
             else if (vert > 0.0001)
             {
-                if (isWalkingDown)
+                if (direction != Direction.UP)
                 {
                     currentTime = 0;
                     animationIndex = 0;
-                    isWalkingDown = false;
-                }
-                if (isWalkingRight)
-                {
-                    currentTime = 0;
-                    animationIndex = 0;
-                    isWalkingRight = false;
-                }
-
-                if (isWalkingLeft)
-                {
-                    currentTime = 0;
-                    animationIndex = 0;
-                    isWalkingLeft = false;
+                    direction = Direction.UP;
                 }
 
                 if (currentTime > animationSpeed)
@@ -314,27 +287,15 @@ public class PlayerMovement : MonoBehaviour
                 }
                 spriteRenderer.sprite = walkingUp[animationIndex];
                 currentTime = currentTime + Time.deltaTime;
-                isWalkingUp = true;
+                direction = Direction.UP;
             }
             else if (horz < -0.0001)
             {
-                if (isWalkingDown)
+                if (direction != Direction.LEFT)
                 {
                     currentTime = 0;
                     animationIndex = 0;
-                    isWalkingDown = false;
-                }
-                if (isWalkingUp)
-                {
-                    currentTime = 0;
-                    animationIndex = 0;
-                    isWalkingUp = false;
-                }
-                if (isWalkingRight)
-                {
-                    currentTime = 0;
-                    animationIndex = 0;
-                    isWalkingRight = false;
+                    direction = Direction.LEFT;
                 }
 
                 if (currentTime > animationSpeed)
@@ -345,27 +306,15 @@ public class PlayerMovement : MonoBehaviour
                 }
                 spriteRenderer.sprite = walkingLeft[animationIndex];
                 currentTime = currentTime + Time.deltaTime;
-                isWalkingLeft = true;
+                direction = Direction.LEFT;
             }
             else if (horz > 0.0001)
             {
-                if (isWalkingDown)
+                if(direction != Direction.RIGHT)
                 {
                     currentTime = 0;
                     animationIndex = 0;
-                    isWalkingDown = false;
-                }
-                if (isWalkingUp)
-                {
-                    currentTime = 0;
-                    animationIndex = 0;
-                    isWalkingUp = false;
-                }
-                if (isWalkingLeft)
-                {
-                    currentTime = 0;
-                    animationIndex = 0;
-                    isWalkingLeft = false;
+                    direction = Direction.RIGHT;
                 }
 
                 if (currentTime > animationSpeed)
@@ -376,7 +325,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 spriteRenderer.sprite = walkingRight[animationIndex];
                 currentTime = currentTime + Time.deltaTime;
-                isWalkingRight = true;
+                direction = Direction.RIGHT;
             }
 
             else
@@ -384,15 +333,15 @@ public class PlayerMovement : MonoBehaviour
                 currentTime = 0;
                 animationIndex = 0;
                 animationIndex = 0;
-                if (isWalkingUp)
+                if (direction == Direction.UP)
                 {
                     spriteRenderer.sprite = standingUp;
                 }
-                else if (isWalkingLeft)
+                else if (direction == Direction.LEFT)
                 {
                     spriteRenderer.sprite = standingLeft;
                 }
-                else if (isWalkingRight)
+                else if (direction == Direction.RIGHT)
                 {
                     spriteRenderer.sprite = standingRight;
                 }
