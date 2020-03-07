@@ -15,7 +15,7 @@ public class InteractiveBlock : MonoBehaviour
     {
         myCollider = GetComponent<BoxCollider2D>();
         myRigidBody = GetComponent<Rigidbody2D>();
-        myRigidBody.bodyType = RigidbodyType2D.Static;
+        //myRigidBody.bodyType = RigidbodyType2D.Static;
         myRigidBody.gravityScale = 0;
         
     }
@@ -28,7 +28,7 @@ public class InteractiveBlock : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Player")
+        /*if (col.gameObject.tag == "Player")
         {
             bool playerInteracting = col.gameObject.GetComponent<PlayerMovement>().getInteract();
             if (playerInteracting)
@@ -38,7 +38,7 @@ public class InteractiveBlock : MonoBehaviour
             
            
             collisionPlayer = true;
-        }
+        }*/
         
 
         //Debug.Log("collision with: " + col.gameObject.tag);
@@ -46,10 +46,10 @@ public class InteractiveBlock : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D col)
     {
-       if (col.gameObject.tag == "Player")
+      /* if (col.gameObject.tag == "Player")
         {
             myRigidBody.bodyType = RigidbodyType2D.Static;
-        }
+        }*/
     }
 
     void OnCollisionStay2D(Collision2D other)
@@ -58,7 +58,7 @@ public class InteractiveBlock : MonoBehaviour
         //other.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         //other.gameObject.GetComponent<Rigidbody2D>().AddForce(force);
         //Debug.Log("STAY " + other.gameObject.tag);
-        if (other != null)
+      /*  if (other != null)
         {
             PlayerMovement playerMovementComponent = other.gameObject.GetComponent<PlayerMovement>();
             if (playerMovementComponent != null)
@@ -67,11 +67,11 @@ public class InteractiveBlock : MonoBehaviour
                 if (playerInteracting)
                 {
                     myRigidBody.bodyType = RigidbodyType2D.Dynamic;
-                    myRigidBody.AddForce(-Vector2.left * 100.30F);
+                    myRigidBody.AddForce(-Vector2.right * 100.30F);
                 }
             }
             
-        }
+        }*/
         
 
     }
