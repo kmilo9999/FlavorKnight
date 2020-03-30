@@ -15,7 +15,7 @@ public class InteractiveBlock : MonoBehaviour
     {
         myCollider = GetComponent<BoxCollider2D>();
         myRigidBody = GetComponent<Rigidbody2D>();
-        //myRigidBody.bodyType = RigidbodyType2D.Static;
+        myRigidBody.bodyType = RigidbodyType2D.Static;
         myRigidBody.gravityScale = 0;
         
     }

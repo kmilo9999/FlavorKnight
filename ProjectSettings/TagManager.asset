@@ -18,8 +18,8 @@ TagManager:
   - terrain
   - grabable
   - playerLayer
-  - 
-  - 
+  - wall
+  - floor
   - 
   - 
   - 
@@ -39,9 +39,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
+  - name: floor
     uniqueID: 1730807279
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: wall
+    uniqueID: 2531581911
+    locked: 0
+  - name: terrain
+    uniqueID: 2896135169
+    locked: 0
+  - name: playerLayer
+    uniqueID: 815596481
+    locked: 0
+  - name: props
+    uniqueID: 2461602655
     locked: 0

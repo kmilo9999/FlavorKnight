@@ -129,15 +129,15 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
             carrying = !carrying;
 
-        /*if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space"))
         {
             interact = true;
-            Debug.Log("interact " + interact);
+            
         }
         else
         {
             interact = false;
-        }*/
+        }
 
         Physics2D.queriesStartInColliders = false;
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x,
@@ -156,16 +156,16 @@ public class PlayerMovement : MonoBehaviour
             //resultRay = hitRight;
             resolveRayHit(hitRight);
         }
-        else if (hitLeft.collider != null)
+         if (hitLeft.collider != null)
         {
             //resultRay = hitLeft;
             resolveRayHit(hitLeft);
         }
-        else if (hitUp.collider != null)
+         if (hitUp.collider != null)
         {
             resolveRayHit(hitUp);
         }
-        else if (hitDown.collider != null)
+         if (hitDown.collider != null)
         {
             resolveRayHit(hitDown);
         }
@@ -195,8 +195,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * rayDistance);
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.left * transform.localScale.x * rayDistance);
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.up * transform.localScale.x * rayDistance);
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.down * transform.localScale.x * rayDistance);
     }
 
     // This is called for every physics update
