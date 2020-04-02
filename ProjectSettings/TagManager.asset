@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - grabable
+  - fire
   layers:
   - Default
   - TransparentFX
