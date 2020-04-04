@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireTileScript : MonoBehaviour
+public class BoolStateTileScript : MonoBehaviour
 {
 
     public Animator animator;
