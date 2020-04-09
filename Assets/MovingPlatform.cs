@@ -83,7 +83,8 @@ public class MovingPlatform : MonoBehaviour
     }
 
     //move left/right
-    private void MoveToDirection(Vector2 direction) => GetComponent<Rigidbody2D>().velocity = direction * speed;
+    //private void MoveToDirection(Vector2 direction) => GetComponent<Rigidbody2D>().velocity = direction * speed;
+    private void MoveToDirection(Vector2 direction) => transform.Translate(direction * Time.deltaTime * speed, Space.World);
 
 }
 

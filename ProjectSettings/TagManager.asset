@@ -52,9 +52,9 @@ TagManager:
   - name: terrain
     uniqueID: 2896135169
     locked: 0
-  - name: playerLayer
+  - name: props
     uniqueID: 815596481
     locked: 0
-  - name: props
+  - name: playerLayer
     uniqueID: 2461602655
     locked: 0
