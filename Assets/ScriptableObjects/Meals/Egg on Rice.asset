@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3353f344636e80c4a8faa131956f7d8b, type: 3}
+  m_Name: Egg on Rice
+  m_EditorClassIdentifier: 
+  ingredients:
+  - id: 0
+    cooked: 1
+    prepared: 1
+  - id: 1
+    cooked: 1
+    prepared: 0
