@@ -170,8 +170,8 @@ MonoBehaviour:
   animationSpeed: 0.125
   boxMask:
     serializedVersion: 2
-    m_Bits: 0
-  rayDistance: 0
+    m_Bits: 14135
+  rayDistance: 5
 --- !u!50 &5377504604539799284
 Rigidbody2D:
   serializedVersion: 4
@@ -231,3 +231,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821c48720e0d6ef4cb8acc3c60eba4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 3
