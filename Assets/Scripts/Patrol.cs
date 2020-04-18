@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyPathF : MonoBehaviour
+public class Patrol : MonoBehaviour
 {
     // Start is called before the first frame update
     public Transform[] targets;
 
-    public float speed = 20f;
+    public float speed;
     public float nextWayPointDistance;
 
     Path path;
@@ -36,7 +36,7 @@ public class EnemyPathF : MonoBehaviour
         // Transform to Vector3 array
         points = new Vector3[targets.Length];
 
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             points[i] = targets[i].position;
         }
@@ -58,7 +58,7 @@ public class EnemyPathF : MonoBehaviour
             path = p;
             currentWayPoint = 0;
         }
-        
+
     }
 
     // Update is called once per frame
@@ -79,23 +79,23 @@ public class EnemyPathF : MonoBehaviour
             currentTarget = currentTarget % targets.Length;
             path = null;
             UpdatePath();
-            
+
             return;
         }
-       
-            Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
-            Vector2 force = direction * speed * Time.deltaTime;
 
-            rb.AddForce(force);
+        Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
+        Vector2 force = direction * speed * Time.deltaTime;
 
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
-            if (distance < nextWayPointDistance)
-            {
-                currentWayPoint++;
-            }
-        
+        rb.AddForce(force);
 
-       
+        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
+        if (distance < nextWayPointDistance)
+        {
+            currentWayPoint++;
+        }
+
+
+
 
     }
 }
