@@ -23,7 +23,7 @@ public class MimicChestBehavior : MonoBehaviour
     private int currentWayPoint = 0;
     private bool search;
     Rigidbody2D rb;
-    private float speed = 50;
+    private float speed = 250;
     private float nextWayPointDistance = 0.25f;
 
     private Vector3 leftScale;
@@ -54,6 +54,17 @@ public class MimicChestBehavior : MonoBehaviour
                 search = false;
                 animator.SetBool("seesPlayer", true);
                 currentState = MimiChest_State.WAITING;
+
+                Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+                if (directionToPlayer.x >= 0.01f)
+                {
+                    transform.localScale = rightScale;
+                }
+                else if (directionToPlayer.x <= -0.01f)
+                {
+                    transform.localScale = leftScale;
+                }
+
             }
         }
         else if (currentState == MimiChest_State.WAITING)
@@ -64,7 +75,7 @@ public class MimicChestBehavior : MonoBehaviour
                 if (Vector3.Distance(transform.position, playerTransform.position) < 3.0f)
                 {
                     search = true;
-                    seeker.StartPath(transform.position, playerTransform.position, OnPathComplete);
+                    InvokeRepeating("UpdatePath", 0f, 0.5f);
                     currentState = MimiChest_State.RUNNING;
                     animator.SetBool("startRunning", true);
                 }
@@ -81,6 +92,8 @@ public class MimicChestBehavior : MonoBehaviour
                 if (rb.bodyType == RigidbodyType2D.Static)
                 {
                     rb.bodyType = RigidbodyType2D.Dynamic;
+                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    rb.drag = 1.5f;
                 }
                 Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
                 Vector2 force = direction * speed * Time.deltaTime;
@@ -106,6 +119,15 @@ public class MimicChestBehavior : MonoBehaviour
       
         
     }
+
+    void UpdatePath()
+    {
+        if (seeker.IsDone())
+        {
+            seeker.StartPath(transform.position, playerTransform.position, OnPathComplete);
+        }
+    }
+
 
     void OnPathComplete(Path p)
     {
