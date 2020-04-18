@@ -29,6 +29,8 @@ public class MimicChestBehavior : MonoBehaviour
     private Vector3 leftScale;
     private Vector3 rightScale;
 
+    private float bouceForce = 220;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,13 +74,12 @@ public class MimicChestBehavior : MonoBehaviour
             waitingTimer += Time.deltaTime;
             if (waitingTimer >= 2.0f)
             {
-                if (Vector3.Distance(transform.position, playerTransform.position) < 3.0f)
-                {
-                    search = true;
-                    InvokeRepeating("UpdatePath", 0f, 0.5f);
-                    currentState = MimiChest_State.RUNNING;
-                    animator.SetBool("startRunning", true);
-                }
+             
+               search = true;
+               InvokeRepeating("UpdatePath", 0f, 0.5f);
+               currentState = MimiChest_State.RUNNING;
+               animator.SetBool("startRunning", true);
+             
             }
         }
         else if (currentState == MimiChest_State.RUNNING)
@@ -142,9 +143,21 @@ public class MimicChestBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (currentState == MimiChest_State.STATIC && collider.gameObject.tag == "Player")
         {
             closeToChest = true;
+        }
+
+        if (currentState == MimiChest_State.RUNNING && collider.gameObject.tag == "Player")
+        {
+            // Calculate Angle Between the collision point and the player
+            Vector2 dir = collider.GetContact(0).point - new Vector2(transform.position.x, transform.position.y);
+            // We then get the opposite (-Vector3) and normalize it
+            dir = -dir.normalized;
+            // And finally we add force in the direction of dir and multiply it by force. 
+            // This will push back the player
+            rb.AddForce(dir * bouceForce);
+            collider.gameObject.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce+ 450));
         }
 
     }
