@@ -2905,6 +2905,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3409823797972379638, guid: af8c2844715a44773ae91e1fb8ddcf4d,
+        type: 3}
+      propertyPath: rayDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3409823797972379638, guid: af8c2844715a44773ae91e1fb8ddcf4d,
+        type: 3}
+      propertyPath: boxMask.m_Bits
+      value: 14135
+      objectReference: {fileID: 0}
     - target: {fileID: 5377504604539799286, guid: af8c2844715a44773ae91e1fb8ddcf4d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2969,6 +2979,11 @@ PrefabInstance:
         type: 3}
       propertyPath: boxMask.m_Bits
       value: 14135
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377504604539799287, guid: af8c2844715a44773ae91e1fb8ddcf4d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5377504604539799288, guid: af8c2844715a44773ae91e1fb8ddcf4d,
         type: 3}

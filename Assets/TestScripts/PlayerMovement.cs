@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     public List<Sprite> carryLeft;
     public List<Sprite> carryDown;
 
+    public List<Sprite> deathAnimation;
+
     private bool carrying;
 
     public KeyCode attackKey = KeyCode.J;

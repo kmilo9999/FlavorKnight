@@ -8,8 +8,9 @@ public class PlayerHealthManager : MonoBehaviour
 
     // called when the player dies. should reset the level once the level system is implemented.
     public void KillPlayer() {
-        Camera.main.GetComponent<CameraFollow>().enabled = false;
-        this.gameObject.SetActive(false);
+        //Camera.main.GetComponent<CameraFollow>().enabled = false;
+        gameObject.GetComponent<NewPlayer_Movement>().Alive = false;
+        //this.gameObject.SetActive(false);
     }
 
     public void DealDamage(int damage) {
