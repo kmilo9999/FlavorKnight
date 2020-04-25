@@ -9,6 +9,8 @@ TagManager:
   - ingredient
   - pot
   - plate
+  - interactable
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -24,8 +26,8 @@ TagManager:
   - playerLayer
   - wall
   - floor
-  - 
-  - 
+  - enemy
+  - GameUI
   - 
   - 
   - 
@@ -60,4 +62,10 @@ TagManager:
     locked: 0
   - name: playerLayer
     uniqueID: 2461602655
+    locked: 0
+  - name: enemy
+    uniqueID: 564460367
+    locked: 0
+  - name: GameUI
+    uniqueID: 2508212021
     locked: 0

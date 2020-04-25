@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5207425382158443229}
   - component: {fileID: 4915055183300808246}
   - component: {fileID: 4915055183300808245}
+  - component: {fileID: 7125975058837105681}
+  - component: {fileID: 5383642065208999286}
   m_Layer: 8
   m_Name: NewFirePit 1
   m_TagString: fire
@@ -114,3 +116,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4915055183300808246}
+  BoolValue: 0
+--- !u!114 &7125975058837105681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5759489586057830411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74bc82ffaa896ff4893ad64aa91ab362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &5383642065208999286
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5759489586057830411}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.36, y: 0.32}
+    newSize: {x: 0.36, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.36, y: 0.32}
+  m_EdgeRadius: 0

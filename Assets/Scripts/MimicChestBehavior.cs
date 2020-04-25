@@ -31,6 +31,8 @@ public class MimicChestBehavior : MonoBehaviour
 
     private float bouceForce = 220;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +78,8 @@ public class MimicChestBehavior : MonoBehaviour
             {
              
                search = true;
+               gameObject.tag = "enemy";
+               gameObject.layer = 14;
                InvokeRepeating("UpdatePath", 0f, 0.5f);
                currentState = MimiChest_State.RUNNING;
                animator.SetBool("startRunning", true);
@@ -156,8 +160,13 @@ public class MimicChestBehavior : MonoBehaviour
             dir = -dir.normalized;
             // And finally we add force in the direction of dir and multiply it by force. 
             // This will push back the player
-            rb.AddForce(dir * bouceForce);
+            
+            if (collider.gameObject.GetComponent<NewPlayer_Movement>().Alive)
+            {
+                rb.AddForce(dir * bouceForce);
+            }
             collider.gameObject.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce+ 450));
+            collider.gameObject.GetComponent<PlayerHealthManager>().DealDamage(1);
         }
 
     }
