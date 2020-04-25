@@ -8,6 +8,7 @@ public class BoolStateTileScript : MonoBehaviour
     
     public Animator animator;
     public bool BoolValue;
+    private bool currentState;
     // Start is called before the first frame update
     void Start()
     {
