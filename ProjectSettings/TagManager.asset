@@ -10,6 +10,7 @@ TagManager:
   - pot
   - plate
   - interactable
+  - enemy
   layers:
   - Default
   - TransparentFX

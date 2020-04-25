@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NewPlayer_Movement : MonoBehaviour
 {
@@ -71,8 +72,16 @@ public class NewPlayer_Movement : MonoBehaviour
         rb2d.velocity = new Vector2(0, 0);
         rb2d.isKinematic = true;
         animator.SetBool("alive", false);
+        Invoke("endGame", 2.5f);
 
     }
+
+    private void endGame()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+    
 
     private void pushDragLogic()
     {

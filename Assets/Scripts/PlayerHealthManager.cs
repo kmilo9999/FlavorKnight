@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-    public int health = 3;
+    public int health;
     private PlayerHealthUI playerHealthUI;
     private GameObject player;
     // called when the player dies. should reset the level once the level system is implemented.

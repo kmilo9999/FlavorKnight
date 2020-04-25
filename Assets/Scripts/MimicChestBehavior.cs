@@ -31,6 +31,8 @@ public class MimicChestBehavior : MonoBehaviour
 
     private float bouceForce = 220;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +78,8 @@ public class MimicChestBehavior : MonoBehaviour
             {
              
                search = true;
+               gameObject.tag = "enemy";
+               gameObject.layer = 14;
                InvokeRepeating("UpdatePath", 0f, 0.5f);
                currentState = MimiChest_State.RUNNING;
                animator.SetBool("startRunning", true);

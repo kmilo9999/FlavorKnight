@@ -57,7 +57,7 @@ public class PlayerCombat : MonoBehaviour
                 //rb.AddForce(dir * bouceForce);
 
                 enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce + 450));
-
+                enemy.gameObject.GetComponent<EnemyHealthManager>().DealDamage(1);
                 //enemy.GetComponent<Rigidbody2D>().AddForce();
             }
         }

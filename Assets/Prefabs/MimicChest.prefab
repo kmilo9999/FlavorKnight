@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8481092590334460480}
   - component: {fileID: 6375213264544739546}
   - component: {fileID: 3637337132154304916}
+  - component: {fileID: 5584221577741616823}
   m_Layer: 8
   m_Name: MimicChest
   m_TagString: interactable
@@ -193,3 +194,16 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &5584221577741616823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8761487943969633033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a7b3f3f2df75584e9f9d334024fa4d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
