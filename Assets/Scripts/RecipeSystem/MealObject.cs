@@ -24,10 +24,11 @@ public class MealObject : MonoBehaviour
         return toRemove;
     }
 
-    void OnTriggerStay2D(Collider2D collider) {
-        if (collider.tag == "ingredient" && collider.transform.parent == null) {
+    void OnCollisionStay2D(Collision2D collider) {
+        if (collider.gameObject.tag == "ingredient" && collider.transform.parent == null) {
             Debug.Log("entering meal");
-            Add(collider.GetComponent<IngredientObject>());
+            Add(collider.gameObject.GetComponent<IngredientObject>());
+            collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             collider.gameObject.SetActive(false);
         }
 

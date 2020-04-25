@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 
-    enum Direction { UP, DOWN, LEFT, RIGHT };
+    public enum Direction { UP, DOWN, LEFT, RIGHT };
 
     // This controls how quickly the player moves
     public float mvAmt = 5;
@@ -93,16 +93,31 @@ public class PlayerMovement : MonoBehaviour
     public float rayDistance;
 
     GameObject obj;
-    Direction GetDirection() {
+    public Direction GetDirection() {
         return direction;
     }
 
-    void startCarrying()
+    public Vector2 GetVectorDirection() {
+        switch (direction) {
+            case Direction.UP:
+                return new Vector2(0, 1);
+            case Direction.RIGHT:
+                return new Vector2(1, 0);
+            case Direction.DOWN:
+                return new Vector2(0, -1);
+            case Direction.LEFT:
+                return new Vector2(-1, 0);
+        }
+        Debug.LogError("Did not successfully switch on the player direction. Was a value added to the direction enum?");
+        return Vector2.zero;
+    }
+
+    public void StartCarrying()
     {
         carrying = true;
     }
 
-    void stopCarrying()
+    public void StopCarrying()
     {
         carrying = false;
     }

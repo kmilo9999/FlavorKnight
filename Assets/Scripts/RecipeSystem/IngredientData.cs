@@ -10,5 +10,9 @@ public class IngredientData : ScriptableObject
     public bool preperable;
     public bool cookable;
     public float cookTime;
+    public float burnTime;
+
+    public Sprite preparedSprite;
+    public Sprite cookedSprite;
 
 }
