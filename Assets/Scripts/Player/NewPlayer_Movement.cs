@@ -25,6 +25,9 @@ public class NewPlayer_Movement : MonoBehaviour
     }
 
     private bool pushDragAction;
+    private bool interactAction;
+
+    private PlayerCombat pCombat;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +37,8 @@ public class NewPlayer_Movement : MonoBehaviour
         inverseScale = Vector2.Scale(rightScale, new Vector2(-1, 1));
         alive = true;
         pushDragAction = false;
+        interactAction = false;
+        pCombat = GetComponent<PlayerCombat>();
     }
 
 
@@ -55,7 +60,7 @@ public class NewPlayer_Movement : MonoBehaviour
 
     private void attackLogic()
     {
-        if (Input.GetKeyDown("space") && !pushDragAction)
+        if (Input.GetKeyDown("space") && !pushDragAction && !interactAction)
         {
             animator.SetBool("attack", true);
         }
@@ -64,7 +69,9 @@ public class NewPlayer_Movement : MonoBehaviour
     private void deathLogic()
     {
         rb2d.velocity = new Vector2(0, 0);
+        rb2d.isKinematic = true;
         animator.SetBool("alive", false);
+
     }
 
     private void pushDragLogic()
@@ -79,50 +86,67 @@ public class NewPlayer_Movement : MonoBehaviour
         RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down * transform.localScale.x,
             rayDistance, boxMask);
 
+        bool hit = false;
         if (hitRight.collider != null)
         {
             //resultRay = hitRight;
             resolveRayHit(hitRight);
+            hit = true;
         }
         if (hitLeft.collider != null)
         {
             //resultRay = hitLeft;
             resolveRayHit(hitLeft);
+            hit = true;
         }
         if (hitUp.collider != null)
         {
             resolveRayHit(hitUp);
+            hit = true;
         }
         if (hitDown.collider != null)
         {
             resolveRayHit(hitDown);
+            hit = true;
         }
 
+        if (!hit)
+        {
+            pushDragAction = false;
+            interactAction = false;
+        }
+       
     }
 
     private void resolveRayHit(RaycastHit2D rayHit)
     {
-        if (rayHit.collider != null && rayHit.collider.gameObject.tag == "grabable"
-            && Input.GetKeyDown("space"))
+        if (rayHit.collider != null && rayHit.collider.gameObject.tag == "grabable")
         {
-            obj = rayHit.collider.gameObject;
-            obj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            obj.GetComponent<FixedJoint2D>().enabled = true;
-            obj.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-            pushDragAction = true;
-        }
-        else if (Input.GetKeyUp("space"))
-        {
-            if (obj != null && obj.GetComponent<FixedJoint2D>() != null)
+            if (Input.GetKeyDown("space"))
             {
-                obj.GetComponent<FixedJoint2D>().enabled = false;
-                Debug.Log("SUPER HERE");
-                obj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-                obj = null;
-                pushDragAction = false;
+                obj = rayHit.collider.gameObject;
+                obj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                obj.GetComponent<FixedJoint2D>().enabled = true;
+                obj.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+                pushDragAction = true;
             }
+            else if (Input.GetKeyUp("space"))
+            {
+                if (obj != null && obj.GetComponent<FixedJoint2D>() != null)
+                {
+                    obj.GetComponent<FixedJoint2D>().enabled = false;
+                    Debug.Log("SUPER HERE");
+                    obj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                    obj = null;
+                    pushDragAction = false;
+                }
 
+            }
+        } else if (rayHit.collider != null && rayHit.collider.gameObject.tag == "interactable")
+        {
+            interactAction = true;
         }
+
     }
 
     private void movementLogic()
@@ -133,20 +157,24 @@ public class NewPlayer_Movement : MonoBehaviour
         if (horizontalMov > 0)
         {
             animator.SetInteger("move_direction", 2);
+            pCombat.PlayerDir = 2;
             transform.localScale = rightScale;
         }
         else if (horizontalMov < 0)
         {
             animator.SetInteger("move_direction", 2);
+            pCombat.PlayerDir = 4;
             transform.localScale = inverseScale;
         }
 
         if (verticalMov < 0)
         {
+            pCombat.PlayerDir = 1;
             animator.SetInteger("move_direction", 1);
         }
         else if (verticalMov > 0)
         {
+            pCombat.PlayerDir = 3;
             animator.SetInteger("move_direction", 3);
         }
 
@@ -167,6 +195,7 @@ public class NewPlayer_Movement : MonoBehaviour
     public void attackEnds()
     {
         animator.SetBool("attack", false);
+        
     }
 
 
