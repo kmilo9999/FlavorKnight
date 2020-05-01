@@ -17,6 +17,12 @@ public class PlayerCombat : MonoBehaviour
         set { playerDir = value; }
     }
 
+    private bool playerDead;
+    public bool PlayerDead
+    {
+        get { return playerDead; }
+        set { playerDead = value; }
+    }
 
     void Start()
     {
@@ -39,27 +45,34 @@ public class PlayerCombat : MonoBehaviour
                 attackPoint.localPosition = new Vector2(0, 4.5f);
                 break;
             case 4:
-                attackPoint.localPosition = new Vector2(4.5f, 0);
+                attackPoint.localPosition = new Vector2(-4.5f, 0);
                 break;
         }
 
         if (Input.GetKeyDown("space"))
         {
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
-            foreach (Collider2D enemy in hitEnemies)
+            if (!playerDead)
             {
-                // Calculate Angle Between the collision point and the player
-                Vector2 dir = (Vector2)enemy.gameObject.transform.position - new Vector2(transform.position.x, transform.position.y);
-                // We then get the opposite (-Vector3) and normalize it
-                dir = -dir.normalized;
-                // And finally we add force in the direction of dir and multiply it by force. 
-                // This will push back the player
-                //rb.AddForce(dir * bouceForce);
+                Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
-                enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce + 450));
-                enemy.gameObject.GetComponent<EnemyHealthManager>().DealDamage(1);
-                //enemy.GetComponent<Rigidbody2D>().AddForce();
+                
+                foreach (Collider2D enemy in hitEnemies)
+                {
+                    // Calculate Angle Between the collision point and the player
+                    Vector2 dir = (Vector2)enemy.gameObject.transform.position - new Vector2(transform.position.x, transform.position.y);
+                    // We then get the opposite (-Vector3) and normalize it
+                    dir = -dir.normalized;
+                    // And finally we add force in the direction of dir and multiply it by force. 
+                    // This will push back the player
+                    //rb.AddForce(dir * bouceForce);
+
+                    enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce + 450));
+                    enemy.gameObject.GetComponent<EnemyHealthManager>().DealDamage(1);
+                    //enemy.GetComponent<Rigidbody2D>().AddForce();
+                }
             }
+
+          
         }
         
     }

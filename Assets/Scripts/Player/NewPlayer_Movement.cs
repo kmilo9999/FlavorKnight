@@ -12,6 +12,7 @@ public class NewPlayer_Movement : MonoBehaviour
     private float verticalMov;
     private Vector3 rightScale;
     private Vector3 inverseScale;
+    private bool isAttacking;
 
     public float rayDistance;
     public LayerMask boxMask;
@@ -30,6 +31,10 @@ public class NewPlayer_Movement : MonoBehaviour
 
     private PlayerCombat pCombat;
 
+    private float attackCoolDown;
+    private float attackCoolDownCounter;
+    private bool canAttack;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +45,10 @@ public class NewPlayer_Movement : MonoBehaviour
         pushDragAction = false;
         interactAction = false;
         pCombat = GetComponent<PlayerCombat>();
+        isAttacking = false;
+        attackCoolDown = 1.2f;
+        attackCoolDownCounter = 0.0f;
+        canAttack = true;
     }
 
 
@@ -47,12 +56,22 @@ public class NewPlayer_Movement : MonoBehaviour
     {
         if (alive)
         {
-            movementLogic();
             pushDragLogic();
+
+            pCombat.PlayerDead = alive;
             attackLogic();
+
+            if (!isAttacking)
+            {
+                movementLogic();
+               
+            }
+            
+           
             
         }
         else {
+            pCombat.PlayerDead = true;
             deathLogic();
         }
 
@@ -61,10 +80,27 @@ public class NewPlayer_Movement : MonoBehaviour
 
     private void attackLogic()
     {
-        if (Input.GetKeyDown("space") && !pushDragAction && !interactAction)
+        if (!canAttack)
         {
-            animator.SetBool("attack", true);
+            attackCoolDownCounter += Time.deltaTime;
+            if (attackCoolDownCounter > attackCoolDown)
+            {
+                canAttack = true;
+                attackCoolDownCounter = 0.0f;
+            }
+
         }
+
+        
+        if (Input.GetKeyDown("space") && !pushDragAction && !interactAction && canAttack )
+        {
+            isAttacking = true;
+            animator.SetBool("attack", isAttacking);
+            canAttack = false;
+        }
+       
+        
+        
     }
 
     private void deathLogic()
@@ -147,15 +183,35 @@ public class NewPlayer_Movement : MonoBehaviour
                     Debug.Log("SUPER HERE");
                     obj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                     obj = null;
-                    pushDragAction = false;
                 }
 
             }
-        } else if (rayHit.collider != null && rayHit.collider.gameObject.tag == "interactable")
+        }
+        else if (rayHit.collider != null && rayHit.collider.gameObject.tag == "interactable")
         {
             interactAction = true;
         }
-
+        else if (rayHit.collider != null &&  ( pushDragAction || interactAction))
+        {
+            if (Input.GetKeyUp("space"))
+            {
+                if (pushDragAction)
+                {
+                    if (obj)
+                    {
+                        obj.GetComponent<FixedJoint2D>().enabled = false;
+                        Debug.Log("SUPER HERE");
+                        obj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                        obj = null;
+                    }
+                    
+                }
+                else if (interactAction)
+                {
+                    interactAction = false;
+                }
+            }
+        }
     }
 
     private void movementLogic()
@@ -167,13 +223,13 @@ public class NewPlayer_Movement : MonoBehaviour
         {
             animator.SetInteger("move_direction", 2);
             pCombat.PlayerDir = 2;
-            transform.localScale = rightScale;
+           // transform.localScale = rightScale;
         }
         else if (horizontalMov < 0)
         {
-            animator.SetInteger("move_direction", 2);
+            animator.SetInteger("move_direction", 4);
             pCombat.PlayerDir = 4;
-            transform.localScale = inverseScale;
+           // transform.localScale = inverseScale;
         }
 
         if (verticalMov < 0)
@@ -196,16 +252,26 @@ public class NewPlayer_Movement : MonoBehaviour
     {
         if (alive)
         {
-            rb2d.velocity = new Vector2(horizontalMov * speed, verticalMov * speed);
+            if (!isAttacking)
+            {
+                rb2d.velocity = new Vector2(horizontalMov * speed, verticalMov * speed);
+            }
+            else {
+                rb2d.velocity = Vector2.zero;
+            }
+            
         }
         
     }
 
     public void attackEnds()
     {
-        animator.SetBool("attack", false);
-        
+        isAttacking = false;
+        animator.SetBool("attack", isAttacking);
+        Debug.Log("attackEnds");
     }
+
+   
 
 
 
