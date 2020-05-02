@@ -75,16 +75,16 @@ MonoBehaviour:
     animation: haul_down
   - state: 5
     direction: 2
-    animation: 
+    animation: dead
   - state: 5
     direction: 0
-    animation: 
+    animation: dead
   - state: 5
     direction: 3
-    animation: 
+    animation: dead
   - state: 5
     direction: 1
-    animation: 
+    animation: dead
   - state: 6
     direction: 2
     animation: grab_left
@@ -99,13 +99,13 @@ MonoBehaviour:
     animation: grab_down
   - state: 7
     direction: 2
-    animation: 
+    animation: push_left
   - state: 7
     direction: 0
-    animation: 
+    animation: push_up
   - state: 7
     direction: 3
-    animation: 
+    animation: push_right
   - state: 7
     direction: 1
-    animation: 
+    animation: push_down
