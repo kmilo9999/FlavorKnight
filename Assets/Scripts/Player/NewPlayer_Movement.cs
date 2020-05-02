@@ -12,6 +12,7 @@ public class NewPlayer_Movement : MonoBehaviour
     private float verticalMov;
     private Vector3 rightScale;
     private Vector3 inverseScale;
+    private bool isAttacking;
 
     public float rayDistance;
     public LayerMask boxMask;
@@ -43,6 +44,10 @@ public class NewPlayer_Movement : MonoBehaviour
 
     // Scriptable object that saves a map of state and direction -> animation clip name
     public StateAnimationData animations;
+
+    private float attackCoolDown;
+    private float attackCoolDownCounter;
+    private bool canAttack;
 
     // Start is called before the first frame update
     void Start()

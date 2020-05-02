@@ -40,19 +40,15 @@ public class PlayerCombat : MonoBehaviour
                 // And finally we add force in the direction of dir and multiply it by force. 
                 // This will push back the player
                 //rb.AddForce(dir * bouceForce);
-
-                enemy.gameObject.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce + 450));
-                enemy.gameObject.GetComponent<EnemyHealthManager>().DealDamage(1);
-                //enemy.GetComponent<Rigidbody2D>().AddForce();
             }
             attacking = hitEnemies.Length > 0;
             Collider2D[] hitIngreds = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, ingredientLayer);
             foreach (Collider2D ingred in hitIngreds) {
-                IngredientData ingredientData = levelManager.GetIngredientData(ingred.GetComponent<IngredientObject>().ingredient.id);
-                if (ingredientData.preperable) {
-                    ingred.GetComponent<IngredientObject>().ingredient.prepared = true;
-                    ingred.GetComponent<SpriteRenderer>().sprite = ingredientData.preparedSprite;
-                }
+            IngredientData ingredientData = levelManager.GetIngredientData(ingred.GetComponent<IngredientObject>().ingredient.id);
+            if (ingredientData.preperable) {
+                ingred.GetComponent<IngredientObject>().ingredient.prepared = true;
+                ingred.GetComponent<SpriteRenderer>().sprite = ingredientData.preparedSprite;
+            }
             }
         }
         
