@@ -31,6 +31,8 @@ public class MimicChestBehavior : MonoBehaviour
 
     private float bouceForce = 220;
 
+    public AudioSource openSound;
+    public AudioSource swingSound;
     
 
     // Start is called before the first frame update
@@ -58,6 +60,7 @@ public class MimicChestBehavior : MonoBehaviour
                 search = false;
                 animator.SetBool("seesPlayer", true);
                 currentState = MimiChest_State.WAITING;
+                openSound.Play();
 
                 Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
                 if (directionToPlayer.x >= 0.01f)
@@ -154,6 +157,7 @@ public class MimicChestBehavior : MonoBehaviour
 
         if (currentState == MimiChest_State.RUNNING && collider.gameObject.tag == "Player")
         {
+            swingSound.Play();
             // Calculate Angle Between the collision point and the player
             Vector2 dir = collider.GetContact(0).point - new Vector2(transform.position.x, transform.position.y);
             // We then get the opposite (-Vector3) and normalize it

@@ -13,22 +13,37 @@ public class CookingPot : MonoBehaviour
 
     private Animator animator;
 
+    public AudioSource boilingSound;
+    public AudioSource cookedSound;
+    public AudioSource burnedSound;
+
     void Start() {
         animator = GetComponent<Animator>();
     }
 
     void Update() {
-        animator.SetBool("boiling", boiling);
+        if (boiling && ingredient != null) {
+            if (!boilingSound.isPlaying) {
+                boilingSound.Play();
+            }
+        } else {
+            boilingSound.Stop();
+        }
+        animator.SetBool("boiling", boiling && ingredient != null);
         if (ingredient != null && boiling) {
             // TODO: change to do burning and stuff + check cookable
             cookingTime += Time.deltaTime;
             IngredientData data = levelManager.GetIngredientData(ingredient.ingredient.id);
             if (data.id == ingredient.ingredient.id && cookingTime > data.burnTime) {
+                burnedSound.Play();
                 GameObject.Destroy(ingredient.gameObject);
                 ingredient = null;
                 Debug.Log("Ingredient Burned! Destroying...");
             }
             if (ingredient && data.id == ingredient.ingredient.id && cookingTime > data.cookTime) {
+                    if (!ingredient.ingredient.cooked) {
+                        cookedSound.Play();
+                    }
                     ingredient.ingredient.cooked = true;
                     ingredient.GetComponent<SpriteRenderer>().sprite = data.cookedSprite;
             }

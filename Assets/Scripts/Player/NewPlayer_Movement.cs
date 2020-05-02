@@ -68,6 +68,14 @@ public class NewPlayer_Movement : MonoBehaviour
         public bool interact;
     }
 
+    // Sound Effects
+    public AudioSource walkSound;
+    public AudioSource swingSound;
+    public AudioSource pickupSound;
+    public AudioSource dropSound; 
+    float walkSoundDelay = .2f;
+    float walkSoundTimer;
+
     private void FixedUpdate() {
         InputCommand inp = TakeInput();
         switch (state) {
@@ -90,6 +98,18 @@ public class NewPlayer_Movement : MonoBehaviour
 
     private void Update()
     {
+        if (rb2d.velocity.magnitude > speed / 2) {
+            if (walkSoundTimer < 0) {
+                if (!walkSound.isPlaying) {
+                    walkSound.Play();
+                }
+            } else {
+                walkSoundTimer -= Time.deltaTime;
+            }
+        } else {
+            walkSound.Stop();
+            walkSoundTimer = walkSoundDelay;
+        }
         InputCommand inp = TakeInput();
         // Debug.LogFormat("State: {0}, Direction: {1}; Input: Moving: {2}, Direction: {3}", state, direction, inp.move, inp.direction);
         PlayerState newState = state;
@@ -99,6 +119,7 @@ public class NewPlayer_Movement : MonoBehaviour
         // monitor if we pick up an item and use a frame to switch to the carrying state if so.
         if (pItem.currentItem != null && state != PlayerState.standCarrying 
             && state != PlayerState.moveCarrying) {
+                pickupSound.Play();
                 newState = PlayerState.standCarrying;
             }
         else if (state != PlayerState.dead && !alive) {
@@ -147,6 +168,7 @@ public class NewPlayer_Movement : MonoBehaviour
                 break;
             case PlayerState.standCarrying:
                 if (inp.interact) {
+                    dropSound.Play();
                     pItem.Drop();
                     newState = PlayerState.standing;
                 }
@@ -158,6 +180,7 @@ public class NewPlayer_Movement : MonoBehaviour
                 break;
             case PlayerState.moveCarrying:
                 if (inp.interact) {
+                    dropSound.Play();
                     pItem.Drop();
                     rb2d.velocity = Vector2.zero;
                     newState = PlayerState.standing;
@@ -173,6 +196,7 @@ public class NewPlayer_Movement : MonoBehaviour
             case PlayerState.attacking:
                 // todo: improve feel of combat
                 if (!timerSet) {
+                    swingSound.Play();
                     nextStateTime = attackTime;
                     timerSet = true;
                     pCombat.StartAttack(direction);
