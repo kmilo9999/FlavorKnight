@@ -7,11 +7,11 @@ public class EnemyHealthManager : MonoBehaviour
     public int health;
     // called when the player dies. should reset the level once the level system is implemented.
 
-    private void Start()
-    {
-        
-    }
+    public GameObject ingredient;
 
+    void Start() {
+        ingredient.SetActive(false);
+    }
 
     public void KillEnemy()
     {
@@ -20,9 +20,9 @@ public class EnemyHealthManager : MonoBehaviour
         // make sure to set the health to zero
         this.health = 0;
         //gameObject.GetComponent<NewPlayer_Movement>().Alive = false;
+        DropIngredient();
         Destroy(gameObject);
         //this.gameObject.SetActive(false);
-
     }
 
     public void DealDamage(int damage)
@@ -46,8 +46,9 @@ public class EnemyHealthManager : MonoBehaviour
         GetComponent<SpriteRenderer>().color = prevColor;
     }
 
-    public void Update()
-    {
-        
+    private void DropIngredient() {
+        ingredient.SetActive(true);
+        ingredient.transform.parent = null;
     }
+
 }

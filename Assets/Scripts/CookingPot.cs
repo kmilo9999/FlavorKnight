@@ -24,10 +24,17 @@ public class CookingPot : MonoBehaviour
     void Update() {
         if (boiling && ingredient != null) {
             if (!boilingSound.isPlaying) {
-                boilingSound.Play();
+                if (cookingTime == 0) {
+                    Debug.Log("Play Sound");
+                    boilingSound.Stop();
+                    boilingSound.Play();
+                } else {
+                    Debug.Log("Unpause sound");
+                    boilingSound.UnPause();
+                }
             }
         } else {
-            boilingSound.Stop();
+            boilingSound.Pause();
         }
         animator.SetBool("boiling", boiling && ingredient != null);
         if (ingredient != null && boiling) {
@@ -36,6 +43,7 @@ public class CookingPot : MonoBehaviour
             IngredientData data = levelManager.GetIngredientData(ingredient.ingredient.id);
             if (data.id == ingredient.ingredient.id && cookingTime > data.burnTime) {
                 burnedSound.Play();
+                levelManager.HandleBurned(ingredient.ingredient.id);
                 GameObject.Destroy(ingredient.gameObject);
                 ingredient = null;
                 Debug.Log("Ingredient Burned! Destroying...");

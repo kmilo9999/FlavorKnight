@@ -33,6 +33,8 @@ public class MimicChestBehavior : MonoBehaviour
 
     public AudioSource openSound;
     public AudioSource swingSound;
+
+    public KeyCode interactKey;
     
 
     // Start is called before the first frame update
@@ -55,7 +57,7 @@ public class MimicChestBehavior : MonoBehaviour
         if (currentState == MimiChest_State.STATIC)
         {
             waitingTimer = 0;
-            if (Input.GetKeyUp("space") && closeToChest)
+            if (Input.GetKeyDown(interactKey) && closeToChest)
             {
                 search = false;
                 animator.SetBool("seesPlayer", true);

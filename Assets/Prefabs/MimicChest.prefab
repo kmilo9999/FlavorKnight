@@ -123,6 +123,7 @@ MonoBehaviour:
   stopDistance: 0
   openSound: {fileID: -3570211298723981984}
   swingSound: {fileID: 6579093917590480688}
+  interactKey: 101
 --- !u!61 &8481092590334460480
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -136,7 +137,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.07478809, y: -0.47365385}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -147,7 +148,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.39, y: 2.44}
+  m_Size: {x: 5.434183, y: 4.5340443}
   m_EdgeRadius: 0
 --- !u!50 &6375213264544739546
 Rigidbody2D:
@@ -210,7 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a7b3f3f2df75584e9f9d334024fa4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
+  health: 4
+  ingredient: {fileID: 0}
 --- !u!82 &6579093917590480688
 AudioSource:
   m_ObjectHideFlags: 0
