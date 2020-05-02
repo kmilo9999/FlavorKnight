@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c3c4967e918d3b41bb4e735e16b7f0f, type: 3}
+  m_Name: Animation Data
+  m_EditorClassIdentifier: 
+  animations:
+  - state: 0
+    direction: 2
+    animation: stand_left
+  - state: 0
+    direction: 0
+    animation: stand_up
+  - state: 0
+    direction: 3
+    animation: stand_right
+  - state: 0
+    direction: 1
+    animation: stand_down
+  - state: 1
+    direction: 2
+    animation: walk_left
+  - state: 1
+    direction: 0
+    animation: walk_up
+  - state: 1
+    direction: 3
+    animation: walk_right
+  - state: 1
+    direction: 1
+    animation: walk_down
+  - state: 2
+    direction: 2
+    animation: attack_left
+  - state: 2
+    direction: 0
+    animation: attack_up
+  - state: 2
+    direction: 3
+    animation: attack_right
+  - state: 2
+    direction: 1
+    animation: attack_down
+  - state: 3
+    direction: 2
+    animation: carry_left
+  - state: 3
+    direction: 0
+    animation: carry_up
+  - state: 3
+    direction: 3
+    animation: carry_right
+  - state: 3
+    direction: 1
+    animation: carry_down
+  - state: 4
+    direction: 2
+    animation: haul_left
+  - state: 4
+    direction: 0
+    animation: haul_up
+  - state: 4
+    direction: 3
+    animation: haul_right
+  - state: 4
+    direction: 1
+    animation: haul_down
+  - state: 5
+    direction: 2
+    animation: 
+  - state: 5
+    direction: 0
+    animation: 
+  - state: 5
+    direction: 3
+    animation: 
+  - state: 5
+    direction: 1
+    animation: 
+  - state: 6
+    direction: 2
+    animation: grab_left
+  - state: 6
+    direction: 0
+    animation: grab_up
+  - state: 6
+    direction: 3
+    animation: grab_right
+  - state: 6
+    direction: 1
+    animation: grab_down
+  - state: 7
+    direction: 2
+    animation: 
+  - state: 7
+    direction: 0
+    animation: 
+  - state: 7
+    direction: 3
+    animation: 
+  - state: 7
+    direction: 1
+    animation: 

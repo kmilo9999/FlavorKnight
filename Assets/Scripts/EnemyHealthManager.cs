@@ -27,12 +27,23 @@ public class EnemyHealthManager : MonoBehaviour
 
     public void DealDamage(int damage)
     {
+        Debug.Log("Hit enemy");
         this.health -= damage;
 
         if (this.health <= 0)
         {
             KillEnemy();
+        } else {
+            Debug.Log("Enemy flashing");
+            StartCoroutine(FlashColor());
         }
+    }
+
+    IEnumerator FlashColor() {
+        Color prevColor = GetComponent<SpriteRenderer>().color;
+        GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(.5f);
+        GetComponent<SpriteRenderer>().color = prevColor;
     }
 
     public void Update()

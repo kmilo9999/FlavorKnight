@@ -16,3 +16,6 @@ MonoBehaviour:
   preperable: 1
   cookable: 1
   cookTime: 5
+  burnTime: 10
+  preparedSprite: {fileID: 21300000, guid: 6811a43e72866eb4188910ca95022f37, type: 3}
+  cookedSprite: {fileID: 21300000, guid: 2938b55920b384e4f839acf9a1308688, type: 3}

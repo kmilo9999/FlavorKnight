@@ -9,14 +9,23 @@ public class CookingPot : MonoBehaviour
     private float cookingTime = 0;
     public LevelManager levelManager;
     public Vector2 kickOutVector = new Vector2(5, 0);
+    public bool boiling = false;
+
+    private Animator animator;
+
+    void Start() {
+        animator = GetComponent<Animator>();
+    }
 
     void Update() {
-        if (ingredient != null) {
+        animator.SetBool("boiling", boiling);
+        if (ingredient != null && boiling) {
             // TODO: change to do burning and stuff + check cookable
             cookingTime += Time.deltaTime;
             IngredientData data = levelManager.GetIngredientData(ingredient.ingredient.id);
             if (data.id == ingredient.ingredient.id && cookingTime > data.burnTime) {
                 GameObject.Destroy(ingredient.gameObject);
+                ingredient = null;
                 Debug.Log("Ingredient Burned! Destroying...");
             }
             if (data.id == ingredient.ingredient.id && cookingTime > data.cookTime) {
@@ -39,6 +48,7 @@ public class CookingPot : MonoBehaviour
                 collider.gameObject.SetActive(false);
                 cookingTime = 0;
             } else {
+                // Todo: reject more intelligently
                 Debug.Log("rejecting from pot");
                 collider.transform.position = (Vector2) this.transform.position + kickOutVector;
             }

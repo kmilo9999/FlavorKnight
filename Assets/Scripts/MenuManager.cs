@@ -9,6 +9,8 @@ public class MenuManager : MonoBehaviour
     public Vector3[] menuPositions;
 
     private int currentPosition;
+
+    public string levelOne;
     
 
     // Start is called before the first frame update
@@ -48,7 +50,7 @@ public class MenuManager : MonoBehaviour
             switch (currentPosition )
             {
                 case 0:
-                    SceneManager.LoadScene("BrynnScene 1", LoadSceneMode.Single);
+                    SceneManager.LoadScene(levelOne, LoadSceneMode.Single);
                     break;
                 case 1:
                     break;

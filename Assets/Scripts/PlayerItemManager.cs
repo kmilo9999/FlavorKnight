@@ -13,29 +13,25 @@ public class PlayerItemManager : MonoBehaviour
 
     public BoxCollider2D pickupCollider;
 
-    private PlayerMovement movementController;
+    private NewPlayer_Movement movementController;
     private float pickupColliderOffset;
 
     void Start() {
         pickupCollider.enabled = false;
-        movementController = GetComponent<PlayerMovement>();
+        movementController = GetComponent<NewPlayer_Movement>();
         pickupColliderOffset = pickupCollider.offset.x;
     }
+    public void Pickup() {
+        StartCoroutine(FlashPickupBox());
+    }
 
-    void Update() { // TODO: adding food preparing w/ check preparable
-        if (Input.GetKeyDown(dropKey)) {
-            if (currentItem != null) {
-                currentItem.transform.localPosition = movementController.GetVectorDirection() * dropDistance;
-                currentItem.transform.parent = null;
-                PlayerMovement.Direction direction = movementController.GetDirection();
-                currentItem.GetComponent<BoxCollider2D>().enabled = true;
-                movementController.StopCarrying();
-                currentItem = null;
-            }
-        }
-        if (Input.GetKeyDown(pickupKey)) {
-            Debug.Log("Trying to pick up ingredient.");
-            StartCoroutine(FlashPickupBox());
+    public void Drop() {
+        Debug.Log("Dropping");
+        if (currentItem != null) {
+            currentItem.transform.localPosition = movementController.GetVectorDirection() * dropDistance;
+            currentItem.transform.parent = null;
+            currentItem.GetComponent<BoxCollider2D>().enabled = true;
+            currentItem = null;
         }
     }
 
@@ -45,16 +41,15 @@ public class PlayerItemManager : MonoBehaviour
         pickupCollider.enabled = true;
         yield return new WaitForSeconds(0.1f);
         pickupCollider.enabled = false;
-    }  
+    }
 
-    void OnTriggerEnter2D(Collider2D collider) {
+    void OnTriggerStay2D(Collider2D collider) {
         Debug.Log("Encountered collider");
         if (collider.tag == "ingredient" && currentItem == null) {
             currentItem = collider.gameObject;
             collider.transform.parent = transform;
             collider.transform.localPosition = new Vector2(0, 7f);
             collider.GetComponent<BoxCollider2D>().enabled = false;
-            movementController.StartCarrying();
             Debug.Log("changed parent:");
             Debug.Log(collider.transform.parent);
         }
@@ -65,7 +60,6 @@ public class PlayerItemManager : MonoBehaviour
             ingredient.gameObject.SetActive(true);
             ingredient.transform.parent = transform;
             ingredient.transform.localPosition = new Vector2(0, 7f);
-            movementController.StartCarrying();
             currentItem = ingredient.gameObject;
         }
         Debug.Log(collider.tag);
@@ -75,7 +69,6 @@ public class PlayerItemManager : MonoBehaviour
             ingredient.gameObject.SetActive(true);
             ingredient.transform.parent = transform;
             ingredient.transform.localPosition = new Vector2(0, 7f);
-            movementController.StartCarrying();
             currentItem = ingredient.gameObject;
         }
     }
