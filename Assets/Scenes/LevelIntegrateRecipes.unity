@@ -4358,16 +4358,26 @@ PrefabInstance:
     - target: {fileID: 3409823797972379638, guid: af8c2844715a44773ae91e1fb8ddcf4d,
         type: 3}
       propertyPath: grabOffset
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 4421374323143933678, guid: af8c2844715a44773ae91e1fb8ddcf4d,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 6.02
+      value: 5.56
       objectReference: {fileID: 0}
     - target: {fileID: 4421374323143933678, guid: af8c2844715a44773ae91e1fb8ddcf4d,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 7.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 4421374323143933678, guid: af8c2844715a44773ae91e1fb8ddcf4d,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 5.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 4421374323143933678, guid: af8c2844715a44773ae91e1fb8ddcf4d,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
       value: 8.35
       objectReference: {fileID: 0}
     - target: {fileID: 5377504604539799286, guid: af8c2844715a44773ae91e1fb8ddcf4d,
@@ -4544,7 +4554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604c283a56867004ba76d93c39553d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropDistance: 5
+  dropDistance: 10
   currentItem: {fileID: 0}
   pickupKey: 101
   dropKey: 114

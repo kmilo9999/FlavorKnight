@@ -62,7 +62,6 @@ public class PlayerItemManager : MonoBehaviour
             ingredient.transform.localPosition = new Vector2(0, 7f);
             currentItem = ingredient.gameObject;
         }
-        Debug.Log(collider.tag);
         if (collider.tag == "plate" && currentItem == null) {
             Debug.Log("removing item from plate");
             IngredientObject ingredient = collider.GetComponent<MealObject>().Remove();

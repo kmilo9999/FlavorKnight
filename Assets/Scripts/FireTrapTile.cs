@@ -8,7 +8,6 @@ public class FireTrapTile : MonoBehaviour
     CookingPot pot = null;
 
     void Update() {
-        Debug.LogFormat("Pot: ", pot);
         if (pot) {
             if (GetComponent<BoolStateTileScript>().BoolValue) {
                 pot.boiling = true;
@@ -19,10 +18,10 @@ public class FireTrapTile : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
-        Debug.Log("Triggered fire");
         if (GetComponent<BoolStateTileScript>().BoolValue)
         {
-            if (collider.gameObject.tag == "Player")
+            Debug.Log(collider.isTrigger);
+            if (collider.gameObject.tag == "Player" && !collider.isTrigger)
             {
                 Debug.Log("killing the player");
                 collider.gameObject.GetComponent<PlayerHealthManager>().KillPlayer();

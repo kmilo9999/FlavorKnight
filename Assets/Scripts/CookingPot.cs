@@ -28,7 +28,7 @@ public class CookingPot : MonoBehaviour
                 ingredient = null;
                 Debug.Log("Ingredient Burned! Destroying...");
             }
-            if (data.id == ingredient.ingredient.id && cookingTime > data.cookTime) {
+            if (ingredient && data.id == ingredient.ingredient.id && cookingTime > data.cookTime) {
                     ingredient.ingredient.cooked = true;
                     ingredient.GetComponent<SpriteRenderer>().sprite = data.cookedSprite;
             }
