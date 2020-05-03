@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
                 Time.timeScale = 1;
                 SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
             } else {
-                continueTime -= Time.deltaTime;
+                continueTime -= Time.unscaledDeltaTime;
             }
         }
     }
@@ -50,8 +50,7 @@ public class LevelManager : MonoBehaviour
 
     public void CheckComplete(List<Ingredient> meal) {
         if (levelData.mealBlueprint.SameMeal(meal)) {
-            Debug.Log("LEVEL COMPLETE"); // todo
-            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+            WinLevel();
         }
     }
 
@@ -73,9 +72,9 @@ public class LevelManager : MonoBehaviour
     public void WinLevel() {
         Debug.Log("LEVEL WON");
         winUI.SetActive(true);
+        Debug.Log(winUI.active);
         won = true;
         Time.timeScale = 0.0f;
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     

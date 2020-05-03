@@ -1,7 +1,10 @@
-﻿using Pathfinding;
+﻿/* using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+
 
 public class MimicChestBehavior : MonoBehaviour
 {
@@ -93,35 +96,6 @@ public class MimicChestBehavior : MonoBehaviour
         }
         else if (currentState == MimiChest_State.RUNNING)
         {
-            // TEMP CODE
-            if (rb.bodyType == RigidbodyType2D.Static)
-            {
-                rb.bodyType = RigidbodyType2D.Dynamic;
-                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-                rb.drag = 1.5f;
-            }
-            rb.AddForce((playerTransform.position - transform.position).normalized * 5); // * speed;
-            if (rb.velocity.magnitude > 2) {
-                rb.velocity = rb.velocity.normalized * 2.5f;
-            }
-            Debug.DrawRay(transform.position, rb.velocity, Color.blue);
-            Debug.DrawLine(transform.position, playerTransform.position, Color.red);
-
-            if (rb.velocity.x >= 0.01f)
-                {
-                    transform.localScale = rightScale;
-                }
-                else if (rb.velocity.x <= -0.01f)
-                {
-                    transform.localScale = leftScale;
-                }
-            // END TEMP CODE
-
-            /*
-            // NOTE: this is the original mimic ai. I am temporarily replacing it in favor of a very simple (and boring :( )
-            // System where the mimic just walks towards the player. This is just to get a working version of the game for
-            // the public playtest and should be reverted after that. - JM
-
             if (!search)
             {
                 if (currentWayPoint >= path.vectorPath.Count)
@@ -153,7 +127,7 @@ public class MimicChestBehavior : MonoBehaviour
                 {
                     transform.localScale = leftScale;
                 }
-            } */
+            }
         }
       
         
@@ -214,3 +188,4 @@ public class MimicChestBehavior : MonoBehaviour
         }
     }
 }
+*/

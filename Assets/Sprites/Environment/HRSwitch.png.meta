@@ -1,25 +1,13 @@
 fileFormatVersion: 2
-guid: fa9074e8f872a9d4cb00790e5ab15448
+guid: 9d80482380e19f74a9257f2547e3a1cd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2038150922040486374
-    second: HRFireTile_0
+      213: 8242402682066104948
+    second: HRSwitch_0
   - first:
-      213: 1676526248912618240
-    second: HRFireTile_1
-  - first:
-      213: 5388312751972859804
-    second: HRFireTile_2
-  - first:
-      213: -9102982423398816
-    second: HRFireTile_3
-  - first:
-      213: 4170340247804471376
-    second: HRFireTile_4
-  - first:
-      213: 763025137384329549
-    second: HRFireTile_5
+      213: -2441280354984413080
+    second: HRSwitch_1
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -63,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1150
+  spritePixelsToUnits: 2500
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -104,127 +92,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HRFireTile_0
+      name: HRSwitch_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 4
-        width: 420
-        height: 400
+        x: 112
+        y: 15
+        width: 622
+        height: 753
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5493c6ca131b36a48aebdd7b50be81ed
-      internalID: -2038150922040486374
+      spriteID: 9f05a37684290dd4d8682a45a0354c6d
+      internalID: 8242402682066104948
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HRFireTile_1
+      name: HRSwitch_1
       rect:
         serializedVersion: 2
-        x: 449
-        y: 4
-        width: 420
-        height: 400
+        x: 908
+        y: 15
+        width: 622
+        height: 753
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebb3824886d609040bd43f1e2f8e6a18
-      internalID: 1676526248912618240
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HRFireTile_2
-      rect:
-        serializedVersion: 2
-        x: 885
-        y: 4
-        width: 420
-        height: 400
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 35feaf7d23516da4380be91af0b6eb2d
-      internalID: 5388312751972859804
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HRFireTile_3
-      rect:
-        serializedVersion: 2
-        x: 1325
-        y: 4
-        width: 420
-        height: 400
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a47a2171be887bc45b9b755a2cd59164
-      internalID: -9102982423398816
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HRFireTile_4
-      rect:
-        serializedVersion: 2
-        x: 1768
-        y: 3
-        width: 420
-        height: 400
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4f55f36da794df544835aea45e4ddedf
-      internalID: 4170340247804471376
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HRFireTile_5
-      rect:
-        serializedVersion: 2
-        x: 2209
-        y: 3
-        width: 420
-        height: 400
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf00520c7ccff9f4bac59c775741ae9f
-      internalID: 763025137384329549
+      spriteID: 6069b6fa4e6ccd647a46d87a213864d3
+      internalID: -2441280354984413080
       vertices: []
       indices: 
       edges: []

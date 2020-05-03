@@ -1,25 +1,22 @@
 fileFormatVersion: 2
-guid: fa9074e8f872a9d4cb00790e5ab15448
+guid: af80dc562a5b28947af5495e39a62b01
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2038150922040486374
-    second: HRFireTile_0
+      213: 5132653654399461283
+    second: HRPot_0
   - first:
-      213: 1676526248912618240
-    second: HRFireTile_1
+      213: -1769964256382144276
+    second: HRPot_1
   - first:
-      213: 5388312751972859804
-    second: HRFireTile_2
+      213: 1890603194581302763
+    second: HRPot_2
   - first:
-      213: -9102982423398816
-    second: HRFireTile_3
+      213: 649460080763559493
+    second: HRPot_3
   - first:
-      213: 4170340247804471376
-    second: HRFireTile_4
-  - first:
-      213: 763025137384329549
-    second: HRFireTile_5
+      213: 2464733159112935784
+    second: HRPot_4
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -63,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1150
+  spritePixelsToUnits: 1350
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -104,127 +101,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HRFireTile_0
+      name: HRPot_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 4
-        width: 420
-        height: 400
+        x: 15
+        y: 8
+        width: 538
+        height: 465
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5493c6ca131b36a48aebdd7b50be81ed
-      internalID: -2038150922040486374
+      spriteID: e6d43f2f7fd00da49adc478091e63c74
+      internalID: 5132653654399461283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HRFireTile_1
+      name: HRPot_1
       rect:
         serializedVersion: 2
-        x: 449
-        y: 4
-        width: 420
-        height: 400
+        x: 1142
+        y: 7
+        width: 538
+        height: 465
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebb3824886d609040bd43f1e2f8e6a18
-      internalID: 1676526248912618240
+      spriteID: 2f642285785a46d49b02c6749fab0abe
+      internalID: -1769964256382144276
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HRFireTile_2
+      name: HRPot_2
       rect:
         serializedVersion: 2
-        x: 885
-        y: 4
-        width: 420
-        height: 400
+        x: 578
+        y: 8
+        width: 538
+        height: 465
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35feaf7d23516da4380be91af0b6eb2d
-      internalID: 5388312751972859804
+      spriteID: aadb839dd598aec459957a946f2e67e2
+      internalID: 1890603194581302763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HRFireTile_3
+      name: HRPot_3
       rect:
         serializedVersion: 2
-        x: 1325
-        y: 4
-        width: 420
-        height: 400
+        x: 1707
+        y: 7
+        width: 538
+        height: 465
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a47a2171be887bc45b9b755a2cd59164
-      internalID: -9102982423398816
+      spriteID: 3aa979ff883e0b440b42b791d0c60fac
+      internalID: 649460080763559493
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HRFireTile_4
+      name: HRPot_4
       rect:
         serializedVersion: 2
-        x: 1768
-        y: 3
-        width: 420
-        height: 400
+        x: 2278
+        y: 6
+        width: 538
+        height: 465
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f55f36da794df544835aea45e4ddedf
-      internalID: 4170340247804471376
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HRFireTile_5
-      rect:
-        serializedVersion: 2
-        x: 2209
-        y: 3
-        width: 420
-        height: 400
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf00520c7ccff9f4bac59c775741ae9f
-      internalID: 763025137384329549
+      spriteID: 3758744cec3cc0045984ef1cd402565b
+      internalID: 2464733159112935784
       vertices: []
       indices: 
       edges: []
