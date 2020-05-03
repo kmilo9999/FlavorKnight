@@ -15,12 +15,31 @@ public class LevelManager : MonoBehaviour
 
     private Dictionary<IngredientID, GameObject> lootMapping;
 
+    public GameObject winUI;
+
+    private bool won = false;
+
+    public float continueTime;
+
     void Start() {
+        winUI.SetActive(false);
         lootMapping = new Dictionary<IngredientID, GameObject>();
         for (int i = 0; i < ingredientDatas.Length; i++) {
             GameObject prototype = GameObject.Instantiate(enemies[i]);
             prototype.SetActive(false);
             lootMapping[ingredientDatas[i].id] = prototype;
+        }
+    }
+
+    void Update() {
+        if (won) {
+            Debug.Log(continueTime);
+            if (continueTime < 0 && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))) {
+                Time.timeScale = 1;
+                SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+            } else {
+                continueTime -= Time.deltaTime;
+            }
         }
     }
 
@@ -53,6 +72,9 @@ public class LevelManager : MonoBehaviour
 
     public void WinLevel() {
         Debug.Log("LEVEL WON");
+        winUI.SetActive(true);
+        won = true;
+        Time.timeScale = 0.0f;
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 

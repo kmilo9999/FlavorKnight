@@ -171,7 +171,7 @@ public class MimicChestBehavior : MonoBehaviour
             {
                 rb.AddForce(dir * bouceForce);
             }
-            collider.gameObject.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce+ 450));
+            collider.gameObject.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce));
             collider.gameObject.GetComponent<PlayerHealthManager>().DealDamage(1);
         }
 
