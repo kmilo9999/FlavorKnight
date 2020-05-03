@@ -7,7 +7,8 @@ public class SwitchTileInteraction : MonoBehaviour
     private bool closeToSwitch;
     // Start is called before the first frame update
     private GameObject switchManager;
-    AudioSource audioSource ;
+    public AudioSource switchSound ;
+    public AudioSource fireSound;
 
     public KeyCode interactKey;
 
@@ -15,7 +16,6 @@ public class SwitchTileInteraction : MonoBehaviour
     {
         closeToSwitch = false;
         switchManager = GameObject.Find("SwitchManager");
-        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -25,7 +25,8 @@ public class SwitchTileInteraction : MonoBehaviour
         if (Input.GetKeyUp(interactKey) && closeToSwitch)
         {
             switchManager.GetComponent<SwitchManager>().state = !switchManager.GetComponent<SwitchManager>().state;
-            audioSource.Play();
+            fireSound.Play();
+            switchSound.Play();
         }
     }
 
