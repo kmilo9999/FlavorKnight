@@ -7702,6 +7702,17 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4504001483236354464, guid: b4c8db7def8a0524ea92ee49d4a3e035,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8f6840de86a905645a7b633c68bed8aa, type: 3}
+    - target: {fileID: 4504001483236354464, guid: b4c8db7def8a0524ea92ee49d4a3e035,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 6137546230808711878, guid: 55783173d41cefe4d98538ed1318a129,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4c8db7def8a0524ea92ee49d4a3e035, type: 3}
 --- !u!1001 &6013411396001718891
