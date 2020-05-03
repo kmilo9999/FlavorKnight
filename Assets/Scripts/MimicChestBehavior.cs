@@ -100,9 +100,9 @@ public class MimicChestBehavior : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 rb.drag = 1.5f;
             }
-            rb.AddForce((playerTransform.position - transform.position).normalized * 5); // * speed;
+            rb.AddForce((playerTransform.position - transform.position).normalized * 3.5f); // * speed;
             if (rb.velocity.magnitude > 2) {
-                rb.velocity = rb.velocity.normalized * 2.5f;
+                rb.velocity = rb.velocity.normalized * 2f;
             }
             Debug.DrawRay(transform.position, rb.velocity, Color.blue);
             Debug.DrawLine(transform.position, playerTransform.position, Color.red);

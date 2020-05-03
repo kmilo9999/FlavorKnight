@@ -40,7 +40,7 @@ public class PlayerCombat : MonoBehaviour
                 dir = -dir.normalized;
                 // And finally we add force in the direction of dir and multiply it by force. 
 
-                enemy.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce+ 250));
+                enemy.GetComponent<Rigidbody2D>().AddForce(-dir * (bouceForce+ 330));
 
                 enemy.GetComponent<EnemyHealthManager>().DealDamage(1);
             }
