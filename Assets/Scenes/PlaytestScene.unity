@@ -204,6 +204,11 @@ PrefabInstance:
       propertyPath: levelManager
       value: 
       objectReference: {fileID: 1316796578}
+    - target: {fileID: 4773035520065233705, guid: 44e88e873378523469e9bad17349414d,
+        type: 3}
+      propertyPath: attackRange
+      value: 0.41
+      objectReference: {fileID: 0}
     - target: {fileID: 6267087392309953651, guid: 44e88e873378523469e9bad17349414d,
         type: 3}
       propertyPath: OutputAudioMixerGroup
